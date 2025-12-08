@@ -20,7 +20,8 @@ describe('User Model', () => {
       expect(user.role).toBe('user');
     });
 
-    test('✅ Creates an admin user', async () => {
+    // Test que hacemos que falle
+    test('✅ Creates an admin user', async () => {   // Verifica que cuando se crea un usuario con el rol 'admin' efectivamente se guarde en la DB como administrador
       const username = uniqueUser();
       const email = `${username}@test.com`;
       const password = await bcrypt.hash('password123', 10);
@@ -28,7 +29,7 @@ describe('User Model', () => {
       const user = await User.create(username, email, password, 'admin');
 
       expect(user).toHaveProperty('id');
-      expect(user.role).toBe('admin');
+      expect(user.role).toBe('admin');    // Valor esperado (expected): 'admin'. Si lo cambiamos a 'superadmin' el test fallará porque el modelo solo permite 'user' o 'admin'.
     });
   });
 
